@@ -1,0 +1,34 @@
+\documentclass{article}
+\usepackage[margin=2cm]{geometry}
+\usepackage{array}
+\usepackage{amsmath}
+
+\begin{document}
+
+\centering
+\Large % Increase the font size for better readability
+\bfseries
+
+\vspace{3cm}
+NAME: \hspace{7cm} DATE:
+\vspace{3cm}
+
+<% for plane in content %>
+  \begin{tabular}{<< col_spec >>}
+  <% for row in plane %>
+    \vspace{3cm}
+    <% for col in row %>
+      <<col>><% if not loop.last %>& \hspace{1cm}<% else %>\\<% endif %>
+    <% endfor %>
+  <% endfor %>
+  \end{tabular}
+  <% if not loop.last %>
+    \newpage
+    \vspace{3cm}
+    NAME: \hspace{7cm} DATE:
+    \vspace{3cm}
+  <% endif %>
+<% endfor %>
+
+
+\end{document}
