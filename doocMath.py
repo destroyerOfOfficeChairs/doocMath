@@ -28,13 +28,14 @@ def handle_args():
     parser.add_argument(
         "--worksheet",
         required=True,
-        choices=["add", "sub", "addsub", "mult"],
+        choices=["add", "sub", "addsub", "mult", "borrow"],
         help=textwrap.dedent("""\
     The type of worksheet you would like to create. Supported types are:
     add - contains addition problems
     sub - contains subtraction problems
     addsub - contains addition and subtraction problems
     mult - contains multiplication problems
+    borrow - contains subtraction problems where every solution requires borrowing
     
     """))
     
@@ -141,7 +142,7 @@ def choose_operator(worksheet):
     operator = ""
     if worksheet == "add":
         operator = "+"
-    elif worksheet == "sub":
+    elif worksheet == "sub" or worksheet == "borrow":
         operator = "-"
     elif worksheet == "addsub":
         operator = random.choice(["+", "-"])
@@ -151,6 +152,44 @@ def choose_operator(worksheet):
         print("Something has gone terribly wrong")
         sys.exit()
     return operator
+
+def create_borrow_subtraction_operands(a, b):
+    arr_a = list(str(a))
+    arr_b = list(str(b))
+    digits_in_A = len(arr_a)
+    digits_in_B = len(arr_b)
+    number_of_indexes = min(digits_in_A, digits_in_B)
+    if number_of_indexes == digits_in_A:
+        number_of_indexes -= 1
+    index = -1
+    counter = 0
+    while counter < number_of_indexes:
+        if int(arr_a[index]) >= int(arr_b[index]):
+            if int(arr_a[index]) == 9:
+                arr_a[index] = str(int(arr_a[index]) - 1)
+            elif int(arr_a[index]) == 0:
+                arr_b[index] = str(int(arr_b[index]) + 1)
+            else:
+                arr_a[index] = str(int(arr_a[index]) - 1)
+                arr_b[index] = str(int(arr_b[index]) + 1)
+            index += 1
+            counter -= 1
+        index -= 1
+        counter += 1
+    str_a = ''.join(arr_a)
+    str_b = ''.join(arr_b)
+    if digits_in_A == digits_in_B and int(str_a) < int(str_b):
+        if int(str_a[0]) == 9:
+            arr_b[0] = str(int(arr_b[0]) - 1)
+        elif int(str_a[1]) == 1:
+            arr_a[0] = str(int(arr_a[0]) + 1)
+        else:
+            arr_a[0] = str(int(arr_a[0]) + 1)
+            arr_b[0] = str(int(arr_b[0]) - 1)
+        str_a = ''.join(arr_a)
+        str_b = ''.join(arr_b)
+    return [int(str_a), int(str_b)]
+
 
 def create_vertical_problem(args):
     digits_flag = args.digits > 0
@@ -174,6 +213,10 @@ def create_vertical_problem(args):
         temp = a
         a = b
         b = temp
+    if args.worksheet == "borrow":
+        arr = create_borrow_subtraction_operands(a ,b)
+        a = arr[0]
+        b = arr[1]
     row_1 = " " + create_row(a, col_count)
     row_2 = operator + create_row(b, col_count)
     with open("templates/vertical_problem.j2") as file:
