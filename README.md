@@ -9,12 +9,12 @@ to generate math problems tailored to your needs.
 
 ### Version
 
-1.3.0
+1.4.0
 
 ## Features
 
 - Create unique math worksheets with addition, subtraction, addition AND
-subtraction, and multiplication problems.
+subtraction, multiplication, and long division problems.
 - Create a special kind of subtraction worksheet, the `borrow` worksheet, where
 every problem requires borrowing to answer correctly.
 - Create a special kind of addition worksheet, the `carry-over` worksheet,
@@ -26,7 +26,8 @@ where every problem requires carrying-over to answer correctly.
 the subtrahend -- meaning the difference will always be greater than or equal
 to 0.
 - Generate multi-page PDFs.
-- Currently, all worksheet problems are in the vertical format.
+- Currently, all worksheet problems are in the vertical format, except for long
+division problems.
 
 ## Installation
 
@@ -68,6 +69,7 @@ Currently, there are 4 kinds of supported worksheets:
 2. `sub` [A - B] Subtraction problems
 3. `addsub` [A + B] or [A - B] Addition AND subtraction problems
 4. `mult` [A * B] Multiplication problems
+5. `long-div` [B / A] Long division problems
 5. `borrow` [A - B] Subtraction problems that all require borrowing
 6. `carry-over` [A + B] Addition problems that all require carrying-over
    
@@ -118,7 +120,8 @@ python3 doocMath.py --worksheet sub --digits_A 3 --digits_B 2 --pages 10
 Here are a few ways doocMath could be improved in the future:
 
 - Customizable operand ranges
-- Long division worksheets
+- Flag to generation long division problems where the quotient is always an
+integer
 - Fractions worksheets
 - Decimal operations
 - Answer key generation
@@ -134,6 +137,10 @@ thoroughly.
 This project is licensed under the MIT License - see the LICENSE file for details.
 
 ## Changelog
+
+### 1.4.0
+
+- Added `long-div` worksheet, which contains long division problems.
 
 ### 1.3.0
 

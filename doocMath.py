@@ -13,7 +13,8 @@ TITLES = {
     "addsub": "ADDITION AND SUBTRACTION",
     "mult": "MULTIPLICATION",
     "borrow": "SUBTRACTION - BORROW",
-    "carry-over": "ADDITION - CARRY OVER"
+    "carry-over": "ADDITION - CARRY OVER",
+    "long-div": "LONG DIVISION",
 }
 
 def handle_args():
@@ -37,13 +38,14 @@ def handle_args():
     parser.add_argument(
         "--worksheet",
         required=True,
-        choices=["add", "sub", "addsub", "mult", "borrow", "carry-over"],
+        choices=["add", "sub", "addsub", "mult", "long-div", "borrow", "carry-over"],
         help=textwrap.dedent("""\
     The type of worksheet you would like to create. Supported types are:
     add - contains addition problems
     sub - contains subtraction problems
     addsub - contains addition and subtraction problems
     mult - contains multiplication problems
+    long-div - contains long division problems
     borrow - contains subtraction problems where every solution requires borrowing
     carry-over - contains addition problems where every solution requires carrying over
     
@@ -73,6 +75,7 @@ def handle_args():
     A + B
     A - B
     A * B
+    B / A
     
     """))
     
@@ -86,6 +89,7 @@ def handle_args():
     A + B
     A - B
     A * B
+    B / A
     
     """))
     
@@ -111,6 +115,15 @@ def handle_args():
         If you would like to preserve the .tex, .aux, and .log files,
         then you can use this argument as a boolean flag.""")
     )
+
+    # THIS WILL BE A FEATURE IN THE NEAR FUTURE
+    #
+    # parser.add_argument(
+    #     "--r0",
+    #     action="store_true",
+    #     help=textwrap.dedent("""\
+    #     Boolean flag. If set, then all quotients will have no remainder.""")
+    # )
 
     args = parser.parse_args()
 
@@ -239,22 +252,31 @@ def create_carry_over_addition_operands(a, b):
         str_b = temp
     return [int(str_a), int(str_b)]
 
-def create_vertical_problem(args):
+def create_two_operands(args):
     digits_flag = args.digits > 0
     a = 0
     b = 0
+    if digits_flag:
+        a = generate_operand(args.digits)
+        b = generate_operand(args.digits)
+    else:
+        a = generate_operand(args.digits_A)
+        b = generate_operand(args.digits_B)
+    return [a, b]
+
+def create_vertical_problem(args):
+    digits_flag = args.digits > 0
+    operands = create_two_operands(args)
+    a = operands[0]
+    b = operands[1]
     col_spec = ""
     col_count = 0
     operator = choose_operator(args.worksheet)
     sub_flag = operator == "-"
     if digits_flag:
-        a = generate_operand(args.digits)
-        b = generate_operand(args.digits)
         col_spec = create_column_spec(args.digits + 1)
         col_count = args.digits + 1
     else:
-        a = generate_operand(args.digits_A)
-        b = generate_operand(args.digits_B)
         col_spec = create_column_spec(max(args.digits_A, args.digits_B) + 1)
         col_count = max(args.digits_A, args.digits_B) + 1
     if sub_flag and b > a:
@@ -280,6 +302,15 @@ def get_template_file_path(args):
     # For now, it just returns one thing
     return "templates/worksheet_grid.j2"
 
+def create_long_div_problem(args):
+    operands = create_two_operands(args)
+    a = operands[0]
+    b = operands[1]
+    with open("templates/long_division.j2") as file:
+        template = Template(file.read(), variable_start_string="<<", variable_end_string=">>")
+    rendered_problem = template.render(divisor=a, dividend=b)
+    return rendered_problem
+
 def render_worksheet(args):
     template_file_path = get_template_file_path(args)
     with open(template_file_path) as file:
@@ -287,7 +318,10 @@ def render_worksheet(args):
     outer_col_count = 4
     outer_row_count = 4
     col_spec = create_column_spec(outer_col_count)
-    content = [[[create_vertical_problem(args) for i in range(outer_col_count)] for j in range(outer_row_count)] for k in range(args.pages)]
+    if args.worksheet != "long-div":
+        content = [[[create_vertical_problem(args) for i in range(outer_col_count)] for j in range(outer_row_count)] for k in range(args.pages)]
+    else:
+        content = [[[create_long_div_problem(args) for i in range(outer_col_count)] for j in range(outer_row_count)] for k in range(args.pages)]
     rendered_worksheet = template.render(col_spec=col_spec, content=content, title=TITLES[args.worksheet])
     return rendered_worksheet
 
