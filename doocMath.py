@@ -7,6 +7,14 @@ import sys
 import textwrap
 from jinja2 import Template
 
+TITLES = {
+    "add": "ADDITION",
+    "sub": "SUBTRACTION",
+    "addsub": "ADDITION AND SUBTRACTION",
+    "mult": "MULTIPLICATION",
+    "borrow": "SUBTRACTION - BORROW"
+}
+
 def handle_args():
     parser = argparse.ArgumentParser(
         description=textwrap.dedent("""\
@@ -236,7 +244,7 @@ def render_worksheet(args):
     outer_row_count = 4
     col_spec = create_column_spec(outer_col_count)
     content = [[[create_vertical_problem(args) for i in range(outer_col_count)] for j in range(outer_row_count)] for k in range(args.pages)]
-    rendered_worksheet = template.render(col_spec=col_spec, content=content)
+    rendered_worksheet = template.render(col_spec=col_spec, content=content, title=TITLES[args.worksheet])
     return rendered_worksheet
 
 def generate_output_directory(worksheet):

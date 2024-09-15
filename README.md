@@ -9,7 +9,7 @@ to generate math problems tailored to your needs.
 
 ### Version
 
-1.1.0
+1.2.0
 
 ## Features
 
@@ -122,6 +122,11 @@ thoroughly.
 This project is licensed under the MIT License - see the LICENSE file for details.
 
 ## Changelog
+
+### 1.2.0
+
+- Added Titles to each worksheet. Titles correspond to the type of worksheet
+generated.
 
 ### 1.1.0
 

@@ -7,11 +7,15 @@
 \Large % Increase the font size for better readability
 \bfseries
 
-\vspace{3cm}
-NAME: \hspace{7cm} DATE:
-\vspace{3cm}
-
 <% for plane in content %>
+  \underline{<< title >>}
+
+  \vspace{1cm}
+  
+  NAME: \hspace{7cm} DATE:
+  
+  \vspace{3cm}
+  
   \begin{tabular}{<< col_spec >>}
   <% for row in plane %>
     \vspace{3cm}
@@ -22,9 +26,6 @@ NAME: \hspace{7cm} DATE:
   \end{tabular}
   <% if not loop.last %>
     \newpage
-    \vspace{3cm}
-    NAME: \hspace{7cm} DATE:
-    \vspace{3cm}
   <% endif %>
 <% endfor %>
 
