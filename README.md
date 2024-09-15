@@ -9,7 +9,7 @@ to generate math problems tailored to your needs.
 
 ### Version
 
-1.0.1
+1.1.0
 
 ## Features
 
