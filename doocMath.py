@@ -12,7 +12,8 @@ TITLES = {
     "sub": "SUBTRACTION",
     "addsub": "ADDITION AND SUBTRACTION",
     "mult": "MULTIPLICATION",
-    "borrow": "SUBTRACTION - BORROW"
+    "borrow": "SUBTRACTION - BORROW",
+    "carry-over": "ADDITION - CARRY OVER"
 }
 
 def handle_args():
@@ -36,7 +37,7 @@ def handle_args():
     parser.add_argument(
         "--worksheet",
         required=True,
-        choices=["add", "sub", "addsub", "mult", "borrow"],
+        choices=["add", "sub", "addsub", "mult", "borrow", "carry-over"],
         help=textwrap.dedent("""\
     The type of worksheet you would like to create. Supported types are:
     add - contains addition problems
@@ -44,6 +45,7 @@ def handle_args():
     addsub - contains addition and subtraction problems
     mult - contains multiplication problems
     borrow - contains subtraction problems where every solution requires borrowing
+    carry-over - contains addition problems where every solution requires carrying over
     
     """))
     
@@ -148,7 +150,7 @@ def generate_operand(digits):
 
 def choose_operator(worksheet):
     operator = ""
-    if worksheet == "add":
+    if worksheet == "add" or worksheet == "carry-over":
         operator = "+"
     elif worksheet == "sub" or worksheet == "borrow":
         operator = "-"
@@ -198,6 +200,44 @@ def create_borrow_subtraction_operands(a, b):
         str_b = ''.join(arr_b)
     return [int(str_a), int(str_b)]
 
+def create_carry_over_addition_operands(a, b):
+    new_a = a
+    new_b = b
+    had_to_switch = False
+    if new_a < new_b:
+        temp = new_a
+        new_a = new_b
+        new_b = temp
+        had_to_switch = True
+    arr_a = list(str(new_a))
+    arr_b = list(str(new_b))
+    digits_in_A = len(arr_a)
+    digits_in_B = len(arr_b)
+    number_of_indexes = min(digits_in_A, digits_in_B)
+    if number_of_indexes == digits_in_A:
+        number_of_indexes -= 1
+    index = -1
+    counter = 0
+    while counter < number_of_indexes:
+        if int(arr_a[index]) + int(arr_b[index]) < 10:
+            if int(arr_a[index]) == 9:
+                arr_b[index] = str(int(arr_b[index]) + random.randint(1, 9))
+            elif int(arr_b[index]) == 9:
+                arr_a[index] = str(int(arr_a[index]) + random.randint(1, 9))
+            else:
+                arr_a[index] = str(random.randint(1, 9))
+                arr_b[index] = str(random.randint(1, 9))
+            index += 1
+            counter -= 1
+        index -= 1
+        counter += 1
+    str_a = ''.join(arr_a)
+    str_b = ''.join(arr_b)
+    if had_to_switch:
+        temp = str_a
+        str_a = str_b
+        str_b = temp
+    return [int(str_a), int(str_b)]
 
 def create_vertical_problem(args):
     digits_flag = args.digits > 0
@@ -223,6 +263,10 @@ def create_vertical_problem(args):
         b = temp
     if args.worksheet == "borrow":
         arr = create_borrow_subtraction_operands(a ,b)
+        a = arr[0]
+        b = arr[1]
+    if args.worksheet == "carry-over":
+        arr = create_carry_over_addition_operands(a, b)
         a = arr[0]
         b = arr[1]
     row_1 = " " + create_row(a, col_count)

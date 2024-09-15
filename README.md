@@ -9,7 +9,7 @@ to generate math problems tailored to your needs.
 
 ### Version
 
-1.2.0
+1.3.0
 
 ## Features
 
@@ -17,6 +17,8 @@ to generate math problems tailored to your needs.
 subtraction, and multiplication problems.
 - Create a special kind of subtraction worksheet, the `borrow` worksheet, where
 every problem requires borrowing to answer correctly.
+- Create a special kind of addition worksheet, the `carry-over` worksheet,
+where every problem requires carrying-over to answer correctly.
 - Generate the kind of worksheet you need with command line arguments.
 - run `python3 doocMath.py --help` to see everything you need to know.
 - Specify the number of digits for each operand.
@@ -58,6 +60,7 @@ Currently, there are 4 kinds of supported worksheets:
 3. `addsub` [A + B] or [A - B] Addition AND subtraction problems
 4. `mult` [A * B] Multiplication problems
 5. `borrow` [A - B] Subtraction problems that all require borrowing
+6. `carry-over` [A + B] Addition problems that all require carrying-over
    
 ## Usage
 
@@ -122,6 +125,11 @@ thoroughly.
 This project is licensed under the MIT License - see the LICENSE file for details.
 
 ## Changelog
+
+### 1.3.0
+
+- Added the ability to create the `carry-over` addition worksheet. Every
+problem requires carrying-over to answer correctly.
 
 ### 1.2.0
 
