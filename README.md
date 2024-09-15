@@ -9,7 +9,7 @@ to generate math problems tailored to your needs.
 
 ### Version
 
-1.0
+1.0.1
 
 ## Features
 
@@ -27,6 +27,7 @@ to 0.
 ## Installation
 
 1. **Clone the repository:**
+
    ```
    git clone https://github.com/destroyerOfOfficeChairs/doocMath.git
    cd doocMath
@@ -34,18 +35,16 @@ to 0.
 
 2. **Install Minimal LaTeX (Linux/Ubuntu):**
    
-   Since doocMath uses `geometry`, `array`, and `amsmath` packages, install
-   `texlive-latex-recommended` which includes them all:
+   Since the only package doocMath requires is the `geometry` package, install
+   `texlive-latex-base`:
    
    ```
-   sudo apt install texlive-latex-recommended
+   sudo apt install texlive-latex-base
    ```
 
    This gives you a minimal LaTeX setup that allows you to use doocMath
-   efficiently without taking up too much space on your system. The total
-   installation size will be around 500MB instead of the 7GB required for a
-   full LaTeX installation.
-
+   efficiently without taking up too much space on your system.
+   
 ## Types Of Worksheets
 
 One of the arguments doocMath requires is `--worksheet`
@@ -120,6 +119,11 @@ thoroughly.
 This project is licensed under the MIT License - see the LICENSE file for details.
 
 ## Changelog
+
+### 1.0.1
+
+- Removed unused packages.
+- Changed instructions in README.md
 
 ### 1.0
 
