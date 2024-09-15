@@ -48,6 +48,15 @@ to 0.
 
    This gives you a minimal LaTeX setup that allows you to use doocMath
    efficiently without taking up too much space on your system.
+
+3. **Install Python Packages**
+
+   Jinja2 is the only required Python package. doocMath uses Jinja2 to create
+   LaTeX documents.
+
+   ```
+   pip install jinja2
+   ```
    
 ## Types Of Worksheets
 
