@@ -15,6 +15,8 @@ to generate math problems tailored to your needs.
 
 - Create unique math worksheets with addition, subtraction, addition AND
 subtraction, and multiplication problems.
+- Create a special kind of subtraction worksheet, the `borrow` worksheet, where
+every problem requires borrowing to answer correctly.
 - Generate the kind of worksheet you need with command line arguments.
 - run `python3 doocMath.py --help` to see everything you need to know.
 - Specify the number of digits for each operand.
@@ -55,6 +57,7 @@ Currently, there are 4 kinds of supported worksheets:
 2. `sub` [A - B] Subtraction problems
 3. `addsub` [A + B] or [A - B] Addition AND subtraction problems
 4. `mult` [A * B] Multiplication problems
+5. `borrow` [A - B] Subtraction problems that all require borrowing
    
 ## Usage
 
@@ -120,6 +123,11 @@ This project is licensed under the MIT License - see the LICENSE file for detail
 
 ## Changelog
 
+### 1.1.0
+
+- Added the ability to create the `borrow` subtraction worksheet. Every problem
+requires borrowing to answer correctly.
+
 ### 1.0.1
 
 - Removed unused packages.
@@ -127,4 +135,4 @@ This project is licensed under the MIT License - see the LICENSE file for detail
 
 ### 1.0
 
-Initial commit
+- Initial commit
