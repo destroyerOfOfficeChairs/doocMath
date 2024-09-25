@@ -34,18 +34,31 @@ def delete_extra_files(output_dir):
     aux_file = base + ".aux"
     log_file = base + ".log"
     tex_file = base + ".tex"
+    answer_aux_file = base + "answer.aux"
+    answer_log_file = base + "answer.log"
+    answer_tex_file = base + "answer.tex"
     os.remove(aux_file)
     os.remove(log_file)
     os.remove(tex_file)
+    os.remove(answer_aux_file)
+    os.remove(answer_log_file)
+    os.remove(answer_tex_file)
 
 def main():
     args = utils.handle_args.handle_args()
-    rendered_worksheet = utils.latex.render_worksheet(args)
+    arr = utils.latex.render_worksheet(args)
+    rendered_worksheet = arr[0]
+    rendered_answersheet = arr[1]
     output_dir = generate_output_directory(args.worksheet)
     tex_file_name = output_dir + ".tex"
     tex_file_path = output_dir + "/" + tex_file_name
     with open(tex_file_path, mode="w") as file:
         file.write(rendered_worksheet)
+    compile_latex(output_dir, tex_file_name)
+    tex_file_name = output_dir + "answer.tex"
+    tex_file_path = output_dir + "/" + tex_file_name
+    with open(tex_file_path, mode="w") as file:
+        file.write(rendered_answersheet)
     compile_latex(output_dir, tex_file_name)
     if not args.keep_all:
         delete_extra_files(output_dir)

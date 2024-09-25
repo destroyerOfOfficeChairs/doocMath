@@ -7,10 +7,10 @@ def handle_args():
         Welcome to doocMath! You can use this program to create math worksheets for your kids."""),
         usage=textwrap.dedent("""
         Use case #1:
-        %(prog)s --worksheet [WORKSHEET] --digits [1-5] [OPTIONAL ARGS]
+        %(prog)s --worksheet [WORKSHEET] --digits [1-3] [OPTIONAL ARGS]
         
         Use case #2:
-        %(prog)s --worksheet [WORKSHEET] --digits-in-operand-A [1-5] --digits-in-operand-B [1-5] [OPTIONAL ARGS]
+        %(prog)s --worksheet [WORKSHEET] --digits-in-operand-A [1-3] --digits-in-operand-B [1-3] [OPTIONAL ARGS]
 
         Example #1:
         %(prog)s --worksheet addsub --digits 3
@@ -38,7 +38,7 @@ def handle_args():
     parser.add_argument(
         "--digits",
         type=int,
-        choices=[1,2,3,4],
+        choices=[1,2,3],
         default=0,
         help=textwrap.dedent("""\
     The maximum number of digits you would like each operand to have.
@@ -52,7 +52,7 @@ def handle_args():
     parser.add_argument(
         "--digits-A",
         type=int,
-        choices=[1,2,3,4],
+        choices=[1,2,3],
         default=0,
         help=textwrap.dedent("""\
     The maximum number of digits you would like the first operand to have.
@@ -66,7 +66,7 @@ def handle_args():
     parser.add_argument(
         '--digits-B',
         type=int,
-        choices=[1,2,3,4],
+        choices=[1,2,3],
         default=0,
         help=textwrap.dedent("""\
     The maximum number of digits you would like the second operand to have.
@@ -98,6 +98,16 @@ def handle_args():
         By default, only a .pdf file is produced by doocMath.
         If you would like to preserve the .tex, .aux, and .log files,
         then you can use this argument as a boolean flag.""")
+    )
+
+    parser.add_argument(
+        "--no-expand",
+        action="store_true",
+        help=textwrap.dedent("""\
+        By default, vertical problems have lots of space between digits. This
+        was a design choice for my 1st grader, who found the extra space
+        helpful. If you do not want that extra space to be there, you can use
+        this flag.""")
     )
 
     # THIS WILL BE A FEATURE IN THE NEAR FUTURE

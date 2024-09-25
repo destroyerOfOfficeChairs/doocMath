@@ -9,7 +9,7 @@ to generate math problems tailored to your needs.
 
 ### Version
 
-1.5.0
+1.6.0
 
 ## Features
 
@@ -124,7 +124,6 @@ Here are a few ways doocMath could be improved in the future:
 integer
 - Fractions worksheets
 - Decimal operations
-- Answer key generation
 
 ## Contributing
 
@@ -137,6 +136,10 @@ thoroughly.
 This project is licensed under the MIT License - see the LICENSE file for details.
 
 ## Changelog
+
+### 1.6.0
+
+- Answer keys are now automatically generated along with worksheets.
 
 ### 1.5.0
 

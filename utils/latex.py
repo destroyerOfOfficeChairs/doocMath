@@ -32,8 +32,31 @@ def render_worksheet(args):
     outer_row_count = 4
     col_spec = create_column_spec(outer_col_count)
     if args.worksheet != "long-div":
-        content = [[[utils.vertical_problem.create_vertical_problem(args) for i in range(outer_col_count)] for j in range(outer_row_count)] for k in range(args.pages)]
+        content = []
+        answer_content = []
+        for i in range(args.pages):
+            content.append([])
+            answer_content.append([])
+            for j in range(outer_row_count):
+                content[i].append([])
+                answer_content[i].append([])
+                for k in range(outer_col_count):
+                    arr = utils.vertical_problem.create_vertical_problem(args)
+                    content[i][j].append(arr[0])
+                    answer_content[i][j].append(arr[1])
     else:
-        content = [[[utils.long_div.create_long_div_problem(args) for i in range(outer_col_count)] for j in range(outer_row_count)] for k in range(args.pages)]
+        content = []
+        answer_content = []
+        for i in range(args.pages):
+            content.append([])
+            answer_content.append([])
+            for j in range(outer_row_count):
+                content[i].append([])
+                answer_content[i].append([])
+                for k in range(outer_col_count):
+                    arr = utils.long_div.create_long_div_problem(args)
+                    content[i][j].append(arr[0])
+                    answer_content[i][j].append(arr[1])
     rendered_worksheet = template.render(col_spec=col_spec, content=content, title=TITLES[args.worksheet])
-    return rendered_worksheet
+    rendered_answersheet = template.render(col_spec=col_spec, content=answer_content, title=TITLES[args.worksheet])
+    return [rendered_worksheet, rendered_answersheet]

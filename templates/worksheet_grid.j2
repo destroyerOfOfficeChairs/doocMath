@@ -6,7 +6,7 @@
 \begin{document}
 
 \centering
-\Large % Increase the font size for better readability
+\large
 \bfseries
 
 <% for plane in content %>
@@ -20,7 +20,7 @@
   
   \begin{tabular}{<< col_spec >>}
   <% for row in plane %>
-    \vspace{3cm}
+    \vspace{2.5cm}
     <% for col in row %>
       <<col>><% if not loop.last %>& \hspace{1cm}<% else %>\\<% endif %>
     <% endfor %>
