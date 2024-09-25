@@ -15,6 +15,7 @@ to generate math problems tailored to your needs.
 
 - Create unique math worksheets with addition, subtraction, addition AND
 subtraction, multiplication, and long division problems.
+- Answer key is generated along with worksheets.
 - Create a special kind of subtraction worksheet, the `borrow` worksheet, where
 every problem requires borrowing to answer correctly.
 - Create a special kind of addition worksheet, the `carry-over` worksheet,
