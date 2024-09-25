@@ -120,7 +120,7 @@ python3 doocMath.py --worksheet sub --digits_A 3 --digits_B 2 --pages 10
 Here are a few ways doocMath could be improved in the future:
 
 - Customizable operand ranges
-- Flag to generation long division problems where the quotient is always an
+- Flag to generate long division problems where the quotient is always an
 integer
 - Fractions worksheets
 - Decimal operations
