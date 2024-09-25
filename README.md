@@ -9,7 +9,7 @@ to generate math problems tailored to your needs.
 
 ### Version
 
-1.4.0
+1.5.0
 
 ## Features
 
@@ -137,6 +137,11 @@ thoroughly.
 This project is licensed under the MIT License - see the LICENSE file for details.
 
 ## Changelog
+
+### 1.5.0
+
+- Refactored the codebase. Now it should be easier to read, maintain, and add new features.
+- Newly created directories now begin with the timestamp instead of the worksheet type.
 
 ### 1.4.0
 
