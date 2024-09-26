@@ -64,7 +64,7 @@ division problems.
 
 One of the arguments doocMath requires is `--worksheet`
 
-Currently, there are 4 kinds of supported worksheets:
+Currently, there are 7 kinds of supported worksheets:
 
 1. `add` [A + B] Addition problems
 2. `sub` [A - B] Subtraction problems
